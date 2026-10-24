@@ -8,3 +8,6 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Auth: Lovable Cloud email/password; signed-in pages live under `src/routes/_authenticated/` (client-only gate) — keeps session checks in one place.
+- Scroll fade-ins use the `reveal` utility + `useReveal()` hook — one lightweight animation mechanism.
