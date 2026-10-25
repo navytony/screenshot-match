@@ -53,9 +53,7 @@ export default function Index() {
             </p>
             <div className="reveal mt-10">
               <Button asChild variant="hero" size="lg">
-                <Link to="/sign-up">
-                  免費開始 · Get started
-                </Link>
+                <Link to="/sign-up">免費開始 · Get started</Link>
               </Button>
             </div>
           </div>

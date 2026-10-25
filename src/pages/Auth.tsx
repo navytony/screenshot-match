@@ -10,7 +10,9 @@ import { useDocumentTitle } from "@/hooks/use-document-title";
 type Mode = "signin" | "signup";
 
 export default function AuthPage({ mode }: { mode: Mode }) {
-  useDocumentTitle(mode === "signup" ? "Sign up — Flight Price Notifier" : "Sign in — Flight Price Notifier");
+  useDocumentTitle(
+    mode === "signup" ? "Sign up — Flight Price Notifier" : "Sign in — Flight Price Notifier",
+  );
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -44,7 +46,13 @@ export default function AuthPage({ mode }: { mode: Mode }) {
   const isSignup = mode === "signup";
   return (
     <div className="min-h-screen bg-background">
-      <SiteHeader right={<Link to="/" className="text-sm text-muted-foreground hover:text-foreground">← Home</Link>} />
+      <SiteHeader
+        right={
+          <Link to="/" className="text-sm text-muted-foreground hover:text-foreground">
+            ← Home
+          </Link>
+        }
+      />
       <div className="relative">
         <div className="pointer-events-none absolute inset-0 bg-gradient-hero" />
         <div className="relative mx-auto max-w-sm px-4 py-20">
@@ -56,11 +64,24 @@ export default function AuthPage({ mode }: { mode: Mode }) {
             <form onSubmit={onSubmit} className="mt-6 space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+                <Input
+                  id="email"
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
-                <Input id="password" type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} />
+                <Input
+                  id="password"
+                  type="password"
+                  required
+                  minLength={6}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
               </div>
               {error && <p className="text-sm text-destructive">{error}</p>}
               <Button type="submit" variant="hero" className="w-full" disabled={loading}>
@@ -69,7 +90,10 @@ export default function AuthPage({ mode }: { mode: Mode }) {
             </form>
             <button
               type="button"
-              onClick={() => { setError(null); navigate(isSignup ? "/sign-in" : "/sign-up", { replace: true }); }}
+              onClick={() => {
+                setError(null);
+                navigate(isSignup ? "/sign-in" : "/sign-up", { replace: true });
+              }}
               className="mt-6 w-full text-center text-sm text-muted-foreground hover:text-foreground"
             >
               {isSignup ? "Already have an account? Sign in" : "No account yet? Sign up"}
