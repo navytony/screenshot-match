@@ -9,5 +9,6 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
-- Auth: Lovable Cloud email/password; signed-in pages live under `src/routes/_authenticated/` (client-only gate) — keeps session checks in one place.
+- Stack: plain Vite + React SPA with React Router (`src/routes.tsx`), built to static files in `dist/` and hosted on Vercel (`vercel.json` rewrites every path to `index.html`). No SSR or server functions.
+- Auth: Supabase email/password at `/sign-in` and `/sign-up`; signed-in pages are children of `<RequireAuth />` in `src/routes.tsx` (client-only gate) — keeps session checks in one place.
 - Scroll fade-ins use the `reveal` utility + `useReveal()` hook — one lightweight animation mechanism.

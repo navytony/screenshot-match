@@ -1,28 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router";
 import { Radar, BellRing, CalendarX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteHeader } from "@/components/SiteHeader";
 import { useReveal } from "@/hooks/use-reveal";
-
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Flight Price Notifier — 機票降價通知" },
-      {
-        name: "description",
-        content: "Set a route and a target price — we email you when the fare drops.",
-      },
-      { property: "og:title", content: "Flight Price Notifier — 機票降價通知" },
-      {
-        property: "og:description",
-        content: "設定航線與目標價，機票降價就通知你。",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
-  component: Index,
-});
+import { useDocumentTitle } from "@/hooks/use-document-title";
 
 const features = [
   {
@@ -42,14 +23,15 @@ const features = [
   },
 ];
 
-function Index() {
+export default function Index() {
+  useDocumentTitle("Flight Price Notifier — 機票降價通知");
   useReveal();
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader
         right={
           <Button asChild variant="hero" size="sm">
-            <Link to="/auth">Sign in / 登入</Link>
+            <Link to="/sign-in">Sign in / 登入</Link>
           </Button>
         }
       />
@@ -71,7 +53,7 @@ function Index() {
             </p>
             <div className="reveal mt-10">
               <Button asChild variant="hero" size="lg">
-                <Link to="/auth" search={{ mode: "signup" }}>
+                <Link to="/sign-up">
                   免費開始 · Get started
                 </Link>
               </Button>

@@ -1,34 +1,17 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "react-router";
 import { useEffect, useState, type FormEvent } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { SiteHeader } from "@/components/SiteHeader";
+import { useDocumentTitle } from "@/hooks/use-document-title";
 
 type Mode = "signin" | "signup";
 
-export const Route = createFileRoute("/auth")({
-  validateSearch: (s: Record<string, unknown>): { mode?: Mode | undefined } => ({
-    mode: s["mode"] === "signup" ? "signup" : undefined,
-  }),
-  head: () => ({
-    meta: [
-      { title: "Sign in — Flight Price Notifier" },
-      { name: "description", content: "Sign in or create your Flight Price Notifier account." },
-      { property: "og:title", content: "Sign in — Flight Price Notifier" },
-      { property: "og:description", content: "Sign in or create your account." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-    ],
-  }),
-  component: AuthPage,
-});
-
-function AuthPage() {
-  const search = Route.useSearch();
+export default function AuthPage({ mode }: { mode: Mode }) {
+  useDocumentTitle(mode === "signup" ? "Sign up — Flight Price Notifier" : "Sign in — Flight Price Notifier");
   const navigate = useNavigate();
-  const [mode, setMode] = useState<Mode>(search.mode ?? "signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -36,7 +19,7 @@ function AuthPage() {
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
-      if (data.user) navigate({ to: "/app", replace: true });
+      if (data.user) navigate("/app", { replace: true });
     });
   }, [navigate]);
 
@@ -54,7 +37,7 @@ function AuthPage() {
         : await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
     if (error) return setError(error.message);
-    if (data.session) navigate({ to: "/app", replace: true });
+    if (data.session) navigate("/app", { replace: true });
     else setError("請到信箱確認帳號後再登入。Check your email to confirm.");
   }
 
@@ -86,7 +69,7 @@ function AuthPage() {
             </form>
             <button
               type="button"
-              onClick={() => { setMode(isSignup ? "signin" : "signup"); setError(null); }}
+              onClick={() => { setError(null); navigate(isSignup ? "/sign-in" : "/sign-up", { replace: true }); }}
               className="mt-6 w-full text-center text-sm text-muted-foreground hover:text-foreground"
             >
               {isSignup ? "Already have an account? Sign in" : "No account yet? Sign up"}
