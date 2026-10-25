@@ -5,9 +5,7 @@ import { Navigate, Outlet, useNavigate, useOutletContext } from "react-router";
 import { supabase } from "@/integrations/supabase/client";
 
 type AuthState =
-  | { status: "loading" }
-  | { status: "signed-out" }
-  | { status: "signed-in"; user: User };
+  { status: "loading" } | { status: "signed-out" } | { status: "signed-in"; user: User };
 
 /** Client-side gate for signed-in pages. Child routes read the user with `useAuthUser()`. */
 export function RequireAuth() {
