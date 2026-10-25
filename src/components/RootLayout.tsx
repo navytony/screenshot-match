@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Outlet, ScrollRestoration, useRouteError } from "react-router";
 
 import { supabase } from "@/integrations/supabase/client";
-import { reportLovableError } from "@/lib/lovable-error-reporting";
 
 export function RootLayout() {
   const [queryClient] = useState(() => new QueryClient());
@@ -28,7 +27,6 @@ export function RootErrorPage() {
   const error = useRouteError();
   useEffect(() => {
     console.error(error);
-    reportLovableError(error, { boundary: "react_router_root_error_element" });
   }, [error]);
 
   return (

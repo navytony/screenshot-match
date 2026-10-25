@@ -2,15 +2,7 @@
 
 Implement exactly the screenshot and nothing else
 
-This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/843363c0-c547-4387-bc52-4ed1735c7094).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+Flight Price Notifier: a Vite + React single-page app with Supabase auth, hosted on Vercel.
 
 ## Development
 
@@ -27,4 +19,8 @@ npm run dev
 
 This is a static single-page app: `npm run build` (or `bun run build`) writes plain HTML, JS and CSS to `dist/`. Import the repo into Vercel and it is detected as a Vite project; `vercel.json` rewrites every path to `index.html`, so deep links like `/app` or `/sign-in` load the app and React Router takes over in the browser.
 
-The Supabase URL and publishable key are read from `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` at build time (from `.env`, or from the Vercel project's environment variables).
+## Supabase
+
+The app talks to its own Supabase project (`pwzczzcmeuqqbkgipriv`). The URL and publishable key are read at build time from `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` — see `.env.example`. Locally they come from `.env`; on Vercel, add both under Project → Settings → Environment Variables.
+
+The publishable key (`sb_publishable_…`) replaces the old anon key: it is safe to ship to the browser, and data access is controlled by Row Level Security.
